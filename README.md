@@ -1,22 +1,20 @@
 # Orange Pi Print Server
 
-A lightweight AirPrint-compatible print server with a real-time web UI,
-designed for Orange Pi and other ARM boards.
-
-No nginx. No CGI. Single Python daemon.
+A lightweight print server with a real-time web UI, designed for Orange Pi to make USB printer a Network printer. Usable by all devices macOS/iOS/Android/Windows/Linux/Unix on the local network.
 
 ---
 
 ## Features
 
 - Auto-discovered via mDNS (`printserver.local`)
-- Real-time web UI (no refresh button)
+- Real-time web UI
 - Live status:
   - WiFi connection
   - CUPS service
   - mDNS (Avahi)
   - Active print jobs
 - Device uptime & last reboot
+- Remote test print from UI
 - Remote reboot from UI
 - Systemd-managed daemon (auto-start on boot)
 
@@ -49,16 +47,16 @@ Edit script for your printer:
     echo "[5/9] Installing Brother laser driver..."
     sudo apt install -y printer-driver-brlaser
 
-- add your printer to cups along with selecting printer driver, make sure printer is plugged into orangepi
+- add your printer to cups along with selecting printer driver, make sure printer is plugged into orangepi and script completed installation
     https://printserver.local:631
     - add printer
     - use your orangepi credientials
     - select your printer, name and go through the printer setup UI (make sure you select share printer)
 
-- access the printer from another device
+- access the printer from another device once script executes and completes installation
     http://printserver.local:8080
     - print test page (printer is connected to orangepi)
-    - reboot orangepi and check if all services start after reboot (headless and reboot recovery print server)
+    - reboot orangepi and check if all services restart after reboot (headless and reboot recovery print server)
 
 ---
 
@@ -77,9 +75,9 @@ Edit script for your printer:
 /opt/printserver
   ├── app.py
   ├── templates/
-│     └── index.html
+  │     └── index.html
   ├── static/
-  │   └── app.js
+  │     └── app.js
 </pre>
 
 ---
@@ -93,8 +91,8 @@ Edit script for your printer:
 | Feature                 | Status |
 | ----------------------- | ------ |
 | CUPS auto-starts        | ✅      |
-| Brother printer added   | ✅      |
-| Android / iOS discovery | ✅      |
+| Printer added           | ✅      |
+| All device discovery    | ✅      |
 | `printserver.local`     | ✅      |
 | Web UI status page      | ✅      |
 | Test print button       | ✅      |
